@@ -26,7 +26,9 @@
 
 每次点击`下载ZIP`将整个项目下载下来。
 
-![git使用方法1](./images/git使用方法1.PNG)
+![git使用方法1](./images/git使用方法1.png)
+
+![git使用方法1](C:\Users\downey\sysu-2023-spring-operating-system\typoraimg\git使用方法1.png)
 
 ## 方法二
 
