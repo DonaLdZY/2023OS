@@ -28,8 +28,6 @@
 
 ![git使用方法1](./images/git使用方法1.png)
 
-![git使用方法1](C:\Users\downey\sysu-2023-spring-operating-system\typoraimg\git使用方法1.png)
-
 ## 方法二
 
 > 在此之前，同学们需要**安装并配置**git，详情参考[廖雪峰的git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
