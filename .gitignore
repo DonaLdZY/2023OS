@@ -1,0 +1,5 @@
+.vscode
+*.o
+*.obj
+*.bin
+tmp
