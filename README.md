@@ -41,7 +41,7 @@ git init
 创建了git仓库后，我们建立远程仓库连接。
 
 ```shell
-git remote add gitee git@gitee.com:goprime/sysu-2023-spring-operating-system.git
+git remote add gitee https://gitee.com/goprime/sysu-2023-spring-operating-system.git
 ```
 
 此后，当远程仓库更新时，我们就从远程仓库中拉取最新的内容。
