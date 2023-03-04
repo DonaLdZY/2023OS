@@ -258,7 +258,7 @@ qemu-system-i386 -kernel linux-5.10.19/arch/x86/boot/bzImage -initrd hwinitramfs
 
 重复上面的gdb的调试过程，可以看到qemu中输出了`lab1: Hello World\n`
 
-![helloworld](images/helloworld.PNG)
+![helloworld](images/helloworld.png)
 
 # 编译并启动Busybox  
 
