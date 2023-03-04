@@ -204,6 +204,8 @@ c
 
 在继续执行后，最终qemu的输出如下，在qemu虚拟机里运行的Linux系统能成功启动，并且最终以Kernel panic宣告结束。看到call trace打出来的是在initrd_load的时候出错，原因很简单，因为启动系统的时候只指定了bzImage，没有指定initrd文件，系统无法mount上initrd (init ram disk) 及其initramfs文件系统。
 
+![panic](images\panic.png)
+
 # 制作Initramfs  
 
 下面的过程在文件夹`~/lab1`下进行。
@@ -254,7 +256,9 @@ echo helloworld | cpio -o --format=newc > hwinitramfs
 qemu-system-i386 -kernel linux-5.10.19/arch/x86/boot/bzImage -initrd hwinitramfs -s -S -append "console=ttyS0 rdinit=helloworld" -nographic
 ```
 
-重复上面的gdb的调试过程，可以看到gdb中输出了`lab1: Hello World\n`
+重复上面的gdb的调试过程，可以看到qemu中输出了`lab1: Hello World\n`
+
+![helloworld](images/helloworld.png)
 
 # 编译并启动Busybox  
 
@@ -343,6 +347,8 @@ qemu-system-i386 -kernel linux-5.10.19/arch/x86/boot/bzImage -initrd initramfs-b
 ```
 
 然后使用`ls`命令即可看到当前文件夹。
+
+![panic](images/busybox.png)
 
 # 附录
 
