@@ -855,7 +855,6 @@ target remote:1234
 ### 参考资料
 重点参考：
 - [10h中断](https://blog.csdn.net/kakitgogogo/article/details/52804340)
-- [10h中断](https://blog.csdn.net/kakitgogogo/article/details/52804340)
 - [中断调用举例](https://www.cnblogs.com/b1ing/p/13044913.html)
 - [OSDev 关于 BIOS 的介绍](https://wiki.osdev.org/BIOS)
 
