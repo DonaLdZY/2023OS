@@ -1,0 +1,5 @@
+target remote:1234
+set disassembly-flavor intel
+add-symbol-file mbr.symbol 0x7c00
+add-symbol-file bootloader.symbol 0x7c00
+add-symbol-file excode.symbol 0x7c00
