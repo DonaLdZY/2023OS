@@ -914,7 +914,7 @@ make debug
 
 # Example 3 初始化IDT
 
-> + Example 2的代码放置在`src/6`下，因此下面的文件名和文件夹名使用的是相对地址。
+> + Example 3的代码放置在`src/6`下，因此下面的文件名和文件夹名使用的是相对地址。
 > + 从Example 3开始，我们则尽量在C/C++环境下实现操作系统。
 > + Example 3的代码在Example 2的基础上修改。
 
