@@ -89,7 +89,7 @@ main.c:(.text+0xa): undefined reference to `print_something'
 collect2: error: ld returned 1 exit status
 ```
 
-这是因为`hello.c`不知道函数`printSomething`的实现。而函数`printSomething`的实现在文件`print.c`中，我们需要在编译命令中加上它，如下所示。
+这是因为`main.c`不知道函数`printSomething`的实现。而函数`printSomething`的实现在文件`print.c`中，我们需要在编译命令中加上它，如下所示。
 
 ```shell
 gcc -o main.out main.c print.c
@@ -163,10 +163,10 @@ int main() {
 我们生成`main.c`代码对应的汇编代码。命令如下，其中，`-masm=intel`是为了生成intel风格的汇编代码，否则默认AT&T风格的代码。
 
 ```shell
-gcc -o hello.s -S hello.c -masm=intel
+gcc -o main.s -S main.c -masm=intel
 ```
 
-生成的`hello.s`内容如下。
+生成的`main.s`内容如下。
 
 ```asm
 	.file	"main.c"
