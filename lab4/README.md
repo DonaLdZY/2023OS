@@ -1178,7 +1178,7 @@ extern InterruptManager interruptManager;
 
 最后，我们将一些常量统一定义在文件`include/os_constant.h`下。
 
-```cpp
+```cppA
 #ifndef OS_CONSTANT_H
 #define OS_CONSTANT_H
 
