@@ -5,7 +5,11 @@
 # 实验要求
 
 > + DDL：2023年4月20号 23:59
+>
 > + 提交的内容：将**4个assignment的代码**和**实验报告**放到**压缩包**中，命名为“**lab4-姓名-学号**”，并交到课程并交到课程邮箱 os_sysu_lab@163.com
+>
+>   将实验报告的pdf提交至 http://inbox.weiyun.com/CKMOBOmw 
+>
 > + **Example材料的代码放置在`src`目录下**。
 
 1. 实验不限语言， C/C++/Rust都可以。
@@ -914,7 +918,7 @@ make debug
 
 # Example 3 初始化IDT
 
-> + Example 2的代码放置在`src/6`下，因此下面的文件名和文件夹名使用的是相对地址。
+> + Example 3的代码放置在`src/6`下，因此下面的文件名和文件夹名使用的是相对地址。
 > + 从Example 3开始，我们则尽量在C/C++环境下实现操作系统。
 > + Example 3的代码在Example 2的基础上修改。
 
