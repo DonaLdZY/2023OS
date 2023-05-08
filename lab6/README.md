@@ -14,7 +14,7 @@ William Stallings. 操作系统: 精髓与设计原理第八版[N]. 中国工信
 
 # 实验要求
 
-> - DDL：2023.05.25 23:59
+> - DDL：2023.05.18 23:59
 > + 提交的内容：将**3个assignment的代码**和**实验报告**放到**压缩包**中，命名为“**lab6-姓名-学号**”，并交到课程邮箱 os_sysu_lab@163.com
 >
 >   将实验报告的pdf提交至 http://inbox.weiyun.com/izossU8G
