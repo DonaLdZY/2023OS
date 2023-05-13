@@ -1310,11 +1310,11 @@ void MemoryManager::releaseVirtualPages(enum AddressPoolType type, const int vad
 
 至此，页内存分配的实现已经完成，同学们可以自行测试。
 
-##  Assignment 1
+#  Assignment 1
 
 复现参考代码，实现二级分页机制，并能够在虚拟机地址空间中进行内存管理，包括内存的申请和释放等，截图并给出过程解释。
 
-## Assignment 2
+# Assignment 2
 
 参照理论课上的学习的物理内存分配算法如first-fit, best-fit等实现动态分区算法等，或者自行提出自己的算法。
 
@@ -1366,7 +1366,7 @@ int BitMap::allocate(const int count){
 }
 ```
 
-## Assignment 3
+# Assignment 3
 
 复现“虚拟页内存管理”一节的代码，完成如下要求。
 
@@ -1374,7 +1374,7 @@ int BitMap::allocate(const int count){
 + 构造测试例子来分析虚拟页内存管理的实现是否存在bug。如果存在，则尝试修复并再次测试。否则，结合测例简要分析虚拟页内存管理的实现的正确性。
 + （**不做要求，对评分没有影响**）如果你有想法，可以在自己的理解的基础上，参考ucore，《操作系统真象还原》，《一个操作系统的实现》等资料来实现自己的虚拟页内存管理。在完成之后，你需要指明相比较于本教程，你的实现的虚拟页内存管理的特点所在。
 
-## （选做）Assignment 4 
+# （选做）Assignment 4 
 
 参照理论课上虚拟内存管理的页面置换算法如FIFO、LRU等，实现页面置换，也可以提出自己的算法。
 
