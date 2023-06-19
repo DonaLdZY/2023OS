@@ -18,11 +18,8 @@
 
 # 写在前面
 
-
-
 + **可以实现多个项目，项目的分数可以累加，上不封顶。超出lab9满分（100分）的部分会被折算到实验课的加分部分，但不会超过实验课的最大加分限制。**
 + **lab9不强求使用本教程提供的代码，可以在你自己的实现的操作系统上，ucore或者xv6的代码上实现相同的功能。因此，下面要求中“自己的操作系统”指的是你自己的实现的操作系统，ucore或者xv6等。由于在github上可以找到ucore或者xv6的相关功能的实现代码，若直接抄袭，则相应实现部分判零分。**
-
 
 # Project 1 malloc/free的实现
 
@@ -42,13 +39,17 @@
 在lab7中，我们实现了以页为粒度的动态内存分配机制。这样的机制实现起来是简单的，因为内存分配的基本单位是固定的，我们就无需考虑由于长度不固定的内存分配单元带来的外部碎片等问题。虽然我们通过固定内存分配单元的长度解决了外部碎片的问题，但是由于一个页的长度是4KB。在一般情况下，我们用不到这么大的内存，因此会产生较多的内部碎片。此时，我们不得不缩小内存分配的粒度来减少内部碎片。所以，我们需要实现以字节为粒度的动态内存分配机制。
 
 前面提到，一个任意长度的内存分配单元是不好管理的。即使我们这里实现的是以字节为粒度的动态内存分配，实际上我们分配的内存单元同样是固定的。只不过这个固定的内存单元不只是一个页，而是若干个固定长度，这些长度都是形如$2^N$的形式，如$16$字节、$32$字节、$64$字节、$128$字节、$256$字节、$512$字节、$1024$字节。这些固定长度的内存单元有一个名字，叫做arena。此时，当我们希望分配$size$个字节的内存时的时候，我们需要找到一个$N$，满足
+
 $$
 2^{N-1}< size\le 2^N
 $$
+
 也就是从小到大搜索，找到第一个恰好不小于$size$的arena。找到这样一个arena后，我们便返回arena的起始地址作为分配的结果。特别地，当没有arena能够包含$size$个字节时，我们就分配连续的$M$个页，使得
+
 $$
 (M-1)\times 4096<size\le M\times 4096
 $$
+
 返回这$M$个页的起始地址作为分配的结果。
 
 以上就是实现以字节为粒度动态内存分配的基本思想，我们现在来实现之。首先，我们需要定义arena的类型。
@@ -88,7 +89,7 @@ struct Arena
 4096 - sizeof(Arena)
 ```
 
-接着，我们计算出$size$长度对应的arena的大小，然后将页的剩余内存划分成相等大小的arena，然后返回第一个arena的起始地址即可。剩余的这些arena会被放入一个双向链表中，作为空闲的arena。当空闲arena链表存在空闲的arena时，我们直接从这个链表中取出一个arena返回即可。由于我们的arena的类型一共有7种，从16到1024，因此会有7个空闲的arena链表。既然是一个链表，那么链表中的每一项都需要包含指向链表下一项的指针和指向上一项的指针，即`MemoryBlockListItem`。
+接着，我们计算出$size$长度对应的arena的大小，然后将页的剩余内存划分成相等大小的arena，然后返回第一个arena的起始地址即可。剩余的这些arena会被放入一个双向链表中，作为空闲的arena。当空闲arena链表存在空闲的arena时，我们直接从这个链表中取出一个arena返回即可。由于我们的arena的类型一共有7种，从16到1024，因此会有7个空闲的arena链表。既然是一个链表，那么链表中的每一项都需要包含指向链表下一项的指针和指向上一项的指针，即 `MemoryBlockListItem`。
 
 ```cpp
 struct MemoryBlockListItem
@@ -97,7 +98,7 @@ struct MemoryBlockListItem
 };
 ```
 
-`MemoryBlockListItem`放在哪里呢？既然链表中存放的arena是空闲的，那么我们就把这``MemoryBlockListItem``放到每一个空闲的arena中，这样我们就不用额外地开辟空间存放链表了，如下所示。
+`MemoryBlockListItem`放在哪里呢？既然链表中存放的arena是空闲的，那么我们就把这 ``MemoryBlockListItem``放到每一个空闲的arena中，这样我们就不用额外地开辟空间存放链表了，如下所示。
 
 <img src="gallery/2.png" alt="1" style="zoom:40%;" />
 
@@ -109,7 +110,7 @@ struct MemoryBlockListItem
 
 <img src="gallery/4.png" alt="1" style="zoom:30%;" />
 
-以上便是内存分配的思路，为了实现方便，我们不妨定义一个类`MemoryManager`来做动态内存分配。
+以上便是内存分配的思路，为了实现方便，我们不妨定义一个类 `MemoryManager`来做动态内存分配。
 
 ```cpp
 // MemoryManager是在内核态调用的内存管理对象
@@ -326,7 +327,7 @@ void ByteMemoryManager::release(void *address)
 }
 ```
 
-由于进程有自己的内存空间，我们修改PCB，在PCB中加入`ByteMemeoryManager`。
+由于进程有自己的内存空间，我们修改PCB，在PCB中加入 `ByteMemeoryManager`。
 
 ```cpp
 struct PCB
@@ -337,7 +338,7 @@ struct PCB
 };
 ```
 
-最后实现malloc和free的系统调用处理函数，同学们需要自行加入两个系统调用`malloc`和`free`。
+最后实现malloc和free的系统调用处理函数，同学们需要自行加入两个系统调用 `malloc`和 `free`。
 
 ```cpp
 void *malloc(int size);
@@ -374,16 +375,17 @@ void syscall_free(void *address)
 }
 ```
 
-其中，`kernelByteMemoryManager`定义为一个`ByteMemoryManager`的全局变量。
+其中，`kernelByteMemoryManager`定义为一个 `ByteMemoryManager`的全局变量。
 
 评分上限为**100分**。
+
 # Project 2 文件系统的实现
 
 我们已经知道，内存是易失的，磁盘是非易失的。有时我们需要将数据从内存持久化到磁盘上。此时，我们需要提供一种结构来有效管理磁盘上的数据，这种结构被称为文件系统。例如，我们将存储到磁盘上的数据称为一个个“文件”、“文件”之间的结构和组成关系被称为“目录”、文件系统提供了“路径”使得我们容易标记磁盘上的文件……总而言之，文件系统大大方便了我们对磁盘上的数据的管理。
 
 在本项目中，同学们可以参考经典的文件系统来设计自己的文件系统，如FAT、NTFS、EXT等，实现基本的文件系统功能。实现过程有如下几个可选方案。
 
-你需要实现`open`、`read`、`write`、`close`等函数，并支持`cd`，`pwd`，`ls`，`cat`，`echo`等命令，不需要实现文本编辑器，不需要实现键盘输入功能。
+你需要实现 `open`、`read`、`write`、`close`等函数，并支持 `cd`，`pwd`，`ls`，`cat`，`echo`等命令，不需要实现文本编辑器，不需要实现键盘输入功能。
 
 ## 方案一 分步骤实现
 
@@ -405,7 +407,6 @@ void syscall_free(void *address)
 当内存紧张的时候，我们不得不将一些物理页换出内存，存放到磁盘上，这被称为页的换出。当程序需要使用被换出的页时，程序会产生一个缺页中断。此时，缺页中断处理函数根据页面置换算法将其他某些页换出，然后将程序需要的页从磁盘加载到内存，并修改页表，使得页表重新指向被重新加载到内存的页。这个过程被称为页的换入。
 
 为了简便起见，我们并没有实现页换入换出机制。现在，同学们需要在自己本学期的实验基础上，实现页换入换出机制。在实现了页换入换出机制后，同学们需要自行提供测例来测试页的换出和页的换入。根据测试方法和输出结果来解释自己程序的正确性。最后将结果截图并说说你是怎么做的。
-
 
 ## 关于通过IO端口读取硬盘的方法
 
@@ -456,7 +457,7 @@ asm_outw_port:
     ret
 ```
 
-上面的函数的参数的含义和`asm_in_port`、`asm_out_port`相同。然后我们在`asm_utils.h`中声明之。
+上面的函数的参数的含义和 `asm_in_port`、`asm_out_port`相同。然后我们在 `asm_utils.h`中声明之。
 
 ```assembly
 extern "C" void asm_inw_port(int port, void *value);
@@ -508,12 +509,12 @@ public:
 
             temp = high | low;
 
-            // 每次需要向0x1f0写入一个字（2个字节）            
+            // 每次需要向0x1f0写入一个字（2个字节）          
             asm_outw_port(0x1f0, temp);
             // 硬盘的状态可以从0x1F7读入
             // 最低位是err位
             asm_in_port(0x1f7, (uint8 *)&temp);
-            
+          
             if (temp & 0x1)
             {
                 asm_in_port(0x1f1, (uint8 *)&temp);
@@ -615,11 +616,11 @@ private:
 #endif
 ```
 
-示例用法如下，我们在`setup.cpp`中加入如下代码。
+示例用法如下，我们在 `setup.cpp`中加入如下代码。
 
 ```cpp
 extern "C" void setup_kernel()
-{    
+{  
 	...
 	// 创建第一个线程
     int pid = programManager.executeThread(first_thread, nullptr, "first thread", 1);
@@ -656,7 +657,7 @@ extern "C" void setup_kernel()
     }
 
     asm_halt();
-    
+  
     ListItem *item = programManager.readyPrograms.front();
     PCB *firstThread = ListItem2PCB(item, tagInGeneralList);
     firstThread->status = ProgramStatus::RUNNING;
@@ -668,15 +669,15 @@ extern "C" void setup_kernel()
 }
 ```
 
-同学们可以使用`xxd`命令检查`hd.img`的内容是否和输出相符。
+同学们可以使用 `xxd`命令检查 `hd.img`的内容是否和输出相符。
 
 # 思路2 Shell的实现
 
-虽然我们已经实现了操作系统的许多基本概念，但是我们的操作系统并不能接受和处理我们的命令。在Linux系统中，我们可以很方便地在Terminal下输入并执行我们的命令，如`cd`、`ls`等，这个用于解释和处理用户命令的Terminal被称为Shell。
+虽然我们已经实现了操作系统的许多基本概念，但是我们的操作系统并不能接受和处理我们的命令。在Linux系统中，我们可以很方便地在Terminal下输入并执行我们的命令，如 `cd`、`ls`等，这个用于解释和处理用户命令的Terminal被称为Shell。
 
 现在，同学们需要在本学期自己的实验基础上实现Shell，同学们的Shell应该具有以下基本功能。
 
-+ 实现键盘输入并能够解析和处理用户输入的命令，如`cd`，`pwd`，`ls`，`cat`，`echo`，`rm`等。
++ 实现键盘输入并能够解析和处理用户输入的命令，如 `cd`，`pwd`，`ls`，`cat`，`echo`，`rm`等。
 + 在实现Project 3的基础上，或者是基于ucore或xv6的文件系统，实现从文件系统中加载程序到内存、然后解析ELF文件、最后创建进程运行这个程序。
 
 在实现Shell后，同学们需要自行提供测例来测试你的Shell。根据测试方法和输出结果来解释你的Shell的正确性。最后将结果截图并说说你是怎么做的。
@@ -703,8 +704,8 @@ extern "C" void setup_kernel()
 
 现在，同学们需要在本学期自己的实验基础上实现基于copy-on-write机制的fork函数。在实现copy-on-write后，同学们需要自行提供测例来测试你的copy-on-write。根据测试方法和输出结果来解释你的copy-on-write的正确性。最后将结果截图并说说你是怎么做的。
 
-
 # 写在最后
+
 本教程创始于2021年春季中山大学计算机学院操作系统课程。为了简化，省去了许多不是操作系统实现的必须的细节，也可能存在一些意想不到的问题，例如对某些概念解释不清、代码中存在bug、实验安排不不合理等。因此，同学们可以结合自己的实验过程，参考ucore、《操作系统真象还原》、《一个操作系统的实现》等来完善本教程。
 
 本教程使用C/C++和x86汇编来实现。但是，C/C++和x86汇编已有数十年的历史。如今，Rust语言和arm处理器方兴未艾。同学们可以结合rust语言和arm处理器来重构本教程的代码。同学们可以使用rust+x86，C/C++ + arm，rust+arm的方式来实现。
